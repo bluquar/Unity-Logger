@@ -77,7 +77,7 @@ public class ReplayGUI : MonoBehaviour {
         rae = GetComponent<ReplayAnalysisEngine>();
         extender = GetComponent<ReplayExtender>();
         
-        gameWidth = float.IsNaN(gameWidth) ?  Screen.height * Camera.mainCamera.aspect : gameWidth;
+        gameWidth = float.IsNaN(gameWidth) ?  Screen.height * Camera.main.aspect : gameWidth;
         originX = (Screen.width - gameWidth) / 2f;
         gameHeight = float.IsNaN(gameHeight) ? Screen.height : gameHeight;
 

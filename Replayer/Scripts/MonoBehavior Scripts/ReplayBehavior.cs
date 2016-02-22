@@ -183,94 +183,94 @@ class ReplayBehavior : MonoBehaviour {
     }
 
     public void Highlight(Color highlight) {
-        if (this.renderer == null || this.renderer.material == null)
+        if (this.GetComponent<Renderer>() == null || this.GetComponent<Renderer>().material == null)
             return;
-        bak = this.renderer.material.color;
-        this.renderer.material.color = highlight;
+        bak = this.GetComponent<Renderer>().material.color;
+        this.GetComponent<Renderer>().material.color = highlight;
         highlighted = true;
     }
 
     public void Highlight(Color highlight, bool additive) {
-        if (this.renderer == null || this.renderer.material == null)
+        if (this.GetComponent<Renderer>() == null || this.GetComponent<Renderer>().material == null)
             return;
-        bak = this.renderer.material.color;
+        bak = this.GetComponent<Renderer>().material.color;
         if(additive)
-            this.renderer.material.color += highlight;
+            this.GetComponent<Renderer>().material.color += highlight;
         else
-            this.renderer.material.color = highlight;
+            this.GetComponent<Renderer>().material.color = highlight;
         highlighted = true;
     }
 
     public void Highlight() {
-        if (this.renderer == null || this.renderer.material == null)
+        if (this.GetComponent<Renderer>() == null || this.GetComponent<Renderer>().material == null)
             return;
-        bak = this.renderer.material.color;
-        this.renderer.material.color = NegateColor(bak);
+        bak = this.GetComponent<Renderer>().material.color;
+        this.GetComponent<Renderer>().material.color = NegateColor(bak);
         highlighted = true;
     }
 
     public void Unhighlight() {
-        if (this.renderer == null || this.renderer.material == null)
+        if (this.GetComponent<Renderer>() == null || this.GetComponent<Renderer>().material == null)
             return;
-        this.renderer.material.color = bak;
+        this.GetComponent<Renderer>().material.color = bak;
         highlighted = false;
     }
 
     public void Flash() {
-        if(this.renderer == null || this.renderer.material == null) return;
-        Color c = NegateColor(this.renderer.material.color);
+        if(this.GetComponent<Renderer>() == null || this.GetComponent<Renderer>().material == null) return;
+        Color c = NegateColor(this.GetComponent<Renderer>().material.color);
         Flash(c);
     }
 
     public void Flash(Color color) {
-        if (this.renderer == null || this.renderer.material == null) return;
+        if (this.GetComponent<Renderer>() == null || this.GetComponent<Renderer>().material == null) return;
         StartCoroutine(FlashCoroutine(color,DEFAULT_FLASH_SPEED,-1,-1,false));
     }
 
     public void Flash(Color color, bool additive) {
-        if (this.renderer == null || this.renderer.material == null) return;
+        if (this.GetComponent<Renderer>() == null || this.GetComponent<Renderer>().material == null) return;
         StartCoroutine(FlashCoroutine(color, DEFAULT_FLASH_SPEED, -1, -1,additive));
     }
 
     public void Flash(Color color, int numberOfTimes) {
-        if (this.renderer == null || this.renderer.material == null) return;
+        if (this.GetComponent<Renderer>() == null || this.GetComponent<Renderer>().material == null) return;
         StartCoroutine(FlashCoroutine(color, DEFAULT_FLASH_SPEED, numberOfTimes, -1,false));
     }
 
     public void Flash(Color color, int numberOfTimes, bool additive) {
-        if (this.renderer == null || this.renderer.material == null) return;
+        if (this.GetComponent<Renderer>() == null || this.GetComponent<Renderer>().material == null) return;
         StartCoroutine(FlashCoroutine(color, DEFAULT_FLASH_SPEED, numberOfTimes, -1,additive));
     }
 
     public void Flash(int numberOfTimes) {
-        if (this.renderer == null || this.renderer.material == null) return;
-        Color c = NegateColor(this.renderer.material.color);
+        if (this.GetComponent<Renderer>() == null || this.GetComponent<Renderer>().material == null) return;
+        Color c = NegateColor(this.GetComponent<Renderer>().material.color);
         Flash(c, numberOfTimes);
     }
 
     public void Flash(Color color, float duration) {
-        if (this.renderer == null || this.renderer.material == null) return;
+        if (this.GetComponent<Renderer>() == null || this.GetComponent<Renderer>().material == null) return;
         StartCoroutine(FlashCoroutine(color, DEFAULT_FLASH_SPEED, -1, duration,false));
     }
 
     public void Flash(Color color, float duration, bool additive) {
-        if (this.renderer == null || this.renderer.material == null) return;
+        if (this.GetComponent<Renderer>() == null || this.GetComponent<Renderer>().material == null) return;
         StartCoroutine(FlashCoroutine(color, DEFAULT_FLASH_SPEED, -1, duration,additive));
     }
 
     public void Flash(float duration) {
-        if (this.renderer == null || this.renderer.material == null) return;
-        Color c = NegateColor(this.renderer.material.color);
+        if (this.GetComponent<Renderer>() == null || this.GetComponent<Renderer>().material == null) return;
+        Color c = NegateColor(this.GetComponent<Renderer>().material.color);
         Flash(c, duration);
     }
 
     IEnumerator FlashCoroutine(Color c, float speed, int numTime, float duration, bool additive) {
-        if (this.renderer == null || this.renderer.material == null)
+        if (this.GetComponent<Renderer>() == null || this.GetComponent<Renderer>().material == null)
             yield break;
         int count = 0;
         float dur = 0f;
         float timeSinceFlash = 0f;
-        bak = this.renderer.material.color;
+        bak = this.GetComponent<Renderer>().material.color;
         while (flashing) {            
             if (timeSinceFlash >= speed) {
                 if (!highlighted) {
@@ -307,7 +307,7 @@ class ReplayBehavior : MonoBehaviour {
 
     public bool HasTouching {
         get {
-            return this.collider != null && touching.Count > 0 && recordTouching;
+            return this.GetComponent<Collider>() != null && touching.Count > 0 && recordTouching;
         }
     }
 

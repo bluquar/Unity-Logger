@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 /// <summary>
 /// Unity only allows the creation of Coroutines (and therefore web requests 
@@ -37,6 +38,11 @@ public class WebService
 		if( www.error != null ) {
 //			Debug.Log ("Request to " + www.url + " failed");
 			Debug.Log( "WWW error: " + www.error );
+            Debug.Log(www.responseHeaders);
+            Debug.Log(www.url);
+            Debug.Log(www.ToString());
+            Debug.Log(www.text);
+            Debug.Log(www.data);
 			if (errorHandler != null)
 				errorHandler(www.error);
 		} else {
@@ -46,12 +52,12 @@ public class WebService
 		}
 	}
 	
-	public static Coroutine request( string url, byte[] data, Hashtable headers, WebResponseHandler callback) 
+	public static Coroutine request( string url, byte[] data, Dictionary<string, string> headers, WebResponseHandler callback) 
 	{
 		return request(url, data, headers, callback, null);		
 	}
 	
-	public static Coroutine request( string url, byte[] data, Hashtable headers, WebResponseHandler callback, WebErrorHandler errorHandler)
+	public static Coroutine request( string url, byte[] data, Dictionary<string, string> headers, WebResponseHandler callback, WebErrorHandler errorHandler)
 	{
 		return Scheduler.startCoroutine(worker( new WWW(url, data, headers), callback, errorHandler));
 	}

@@ -116,7 +116,7 @@ public class Logger {
 	/// <param name="gob">The game object to stringify.</param>
 	/// <returns>A loggable string containing the transform properties.</returns> 
 	private string FormatTransform(GameObject gob) {
-		if (gob.transform.rigidbody == null) {
+		if (gob.transform.GetComponent<Rigidbody>() == null) {
 			// Transform with no rigid body
 			// Collision with non-rigid body object
 			//return System.String.Format("Transform(Position({0},{1}),Rotation({2}))",
@@ -131,9 +131,9 @@ public class Logger {
 		                                gob.transform.position.x,
 		                                gob.transform.position.y,
 		                                gob.transform.rotation.z,
-		                                gob.rigidbody.velocity.x,
-		                                gob.rigidbody.velocity.y,
-		                                gob.rigidbody.angularVelocity.z,
+		                                gob.GetComponent<Rigidbody>().velocity.x,
+		                                gob.GetComponent<Rigidbody>().velocity.y,
+		                                gob.GetComponent<Rigidbody>().angularVelocity.z,
                                         TRANSFORM,POSITION,ROTATION,VELOCITY,ANGULAR_VELOCITY);		
 		}
 	}
@@ -188,7 +188,7 @@ public class Logger {
 	/// <summary>
 	/// Determines if logger should use file or network for logging. 
 	/// </summary>
-	public LoggingMode Mode = LoggingMode.Disabled;
+	public LoggingMode Mode = LoggingMode.HttpWriter;
 	
 	/// <summary>
 	/// The user id which will be associated with this logging session.

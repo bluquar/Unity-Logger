@@ -3,8 +3,6 @@ using System.Collections;
 using System.Xml;
 using System.Collections.Generic;
 
-
-
 [RequireComponent(typeof(PrefabDictionary),typeof(ReplayGUI))]
 public class ReplayAnalysisEngine : MonoBehaviour {
     #region Flags
@@ -266,6 +264,7 @@ public class ReplayAnalysisEngine : MonoBehaviour {
     IEnumerator WaitForStop(StudentAction action) {
         List<GameObject> state = new List<GameObject>(ReplayBehavior.GetGameObjectsWithRAETag(ReplayBehavior.RAETag.State));
         state.AddRange(ReplayBehavior.GetGameObjectsWithRAETag(ReplayBehavior.RAETag.Action));
+        Rigidbody rigidbody;
         float callTime = Time.time;
         switch (stopCondition) {
             case StoppingCondition.Instant:
@@ -279,7 +278,8 @@ public class ReplayAnalysisEngine : MonoBehaviour {
                     }
 
                     foreach (GameObject go in state) {
-                        if (go != null && go.rigidbody != null & !go.rigidbody.IsSleeping()) {
+                        rigidbody = go.GetComponent<Rigidbody>();
+                        if (go != null && rigidbody != null && rigidbody.IsSleeping()) {
                             allSleeping = false;
                             yield return null;
                             break;

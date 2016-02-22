@@ -52,7 +52,7 @@ public class HttpWriter : ILogWriter
 	/// <summary>
 	/// TBD: Need a way to supply this via configuration file.
 	/// </summary>
-	private const string LOGGING_SERVICE_URL = "http://rumbleblocks.etc.cmu.edu/Logger/LoggingService.asmx";
+	private const string LOGGING_SERVICE_URL = "http://127.0.0.1:8000/log";
 	
 	/// <summary>
 	/// The number of seconds the system will queue messages before
@@ -128,8 +128,7 @@ public class HttpWriter : ILogWriter
 		myForm.AddField("secret", HttpWriter.SHARED_SECRET);
 		myForm.AddField("message", message);
 		byte[] byteData = myForm.data;
-		Hashtable headers = new Hashtable();
-		headers = myForm.headers;
+		Dictionary<string, string> headers = new Dictionary<string, string>(myForm.headers);
 		WebService.request(LOGGING_SERVICE_URL + "/LogString", byteData, headers, WebRequestOK, WebRequestErr);
 	}
 	
@@ -152,8 +151,7 @@ public class HttpWriter : ILogWriter
 		myForm.AddField("", "");
 		
 		byte[] byteData = myForm.data;
-		Hashtable headers = new Hashtable();
-		headers = myForm.headers;
+		Dictionary<string, string> headers = new Dictionary<string, string>(myForm.headers);
 		WebService.request(LOGGING_SERVICE_URL + "/HelloWorld", byteData, headers, WebRequestOK, WebRequestErr);
 		
 		// Set timeout counter to a point in the future.
